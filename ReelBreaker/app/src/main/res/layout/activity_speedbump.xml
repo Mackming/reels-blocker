@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/overlay_bg"
+    android:gravity="center_horizontal"
+    android:paddingStart="24dp"
+    android:paddingTop="36dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="36dp">
+
+    <!-- Top Badge -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_pill_chip"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.08"
+        android:text="SYSTEM-2 INTERVENTION"
+        android:textColor="@color/accent"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/sb_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_hi"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/sb_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/text_med"
+        android:textSize="13sp" />
+
+    <!-- 3x3 Motor Grid Container Card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_card_glass"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <GridLayout
+            android:id="@+id/sb_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sb_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@color/accent2"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReelBreaker</string>
+    <string name="accessibility_label">ReelBreaker — Reels Blocker &amp; Counter</string>
+
+    <!-- Onboarding -->
+    <string name="onboard_headline">Reels are slot machines.\nYour thumb is pulling the lever.</string>
+    <string name="onboard_sub">ReelBreaker counts every swipe, detects when you lose control, and puts neuroscience-based friction between the urge and the feed.</string>
+    <string name="onboard_step1">1 · Counting needs the Accessibility switch — it\'s the only OS-level way to see swipes without root. Your data never leaves the phone.</string>
+    <string name="onboard_step2">2 · Pick your feeds: Instagram Reels, YouTube Shorts, TikTok…</string>
+    <string name="onboard_step3">3 · Choose your protection level — from pure awareness to hard blocking.</string>
+    <string name="onboard_grant_accessibility">Grant accessibility access</string>
+    <string name="onboard_enable_blocker">Turn blocker ON</string>
+    <string name="onboard_finish">Start breaking the loop</string>
+
+    <!-- Dashboard -->
+    <string name="dash_today">reels today</string>
+    <string name="dash_budget_of">of %1$d planned</string>
+    <string name="dash_streak">🔥 %1$d-day streak under budget</string>
+    <string name="dash_session_active">Session live: %1$d reels · %2$s min · %3$.0f/min</string>
+    <string name="dash_session_idle">No active session. The counter wakes up when you scroll.</string>
+    <string name="dash_blocked_today">%1$d pulls blocked · %2$d s of cooldowns surfed today</string>
+    <string name="dash_7day">Last 7 days</string>
+    <string name="dash_settings">Settings</string>
+    <string name="dash_protection_on">Blocker ARMED</string>
+    <string name="dash_protection_off">Blocker OFF — tap to arm</string>
+
+    <!-- Settings -->
+    <string name="set_mode">Protection level</string>
+    <string name="mode_gentle_desc">Awareness only — live counter chip, zero blocking</string>
+    <string name="mode_moderate_desc">Friction on loss-of-control + session caps</string>
+    <string name="mode_strict_desc">All friction + enforced stop rule</string>
+    <string name="mode_block_desc">Hard block after budget — app gets sent home</string>
+    <string name="set_daily_budget">Daily reel budget</string>
+    <string name="set_session_cap">Session soft cap (reels)</string>
+    <string name="set_commitment">If–Then stop rule: "I stop after ___ reels"</string>
+    <string name="set_apps">Target feeds</string>
+    <string name="set_save">Save</string>
+    <string name="set_saved">Saved ✓</string>
+
+    <!-- Overlay -->
+    <string name="cooldown_title">Ride the wave 🌊</string>
+    <string name="cooldown_remaining">%1$d s</string>
+    <string name="waiting_for_wave">Waiting for the urge to crest…</string>
+    <string name="i_am_done_continue">I chose this — continue</string>
+    <string name="checkpoint_title">Checkpoint</string>
+    <string name="checkpoint_prompt">Before you swipe again, say it out loud:\n"What did I actually open this app to do?"</string>
+    <string name="stop_here_is_good">Stopping here is a win ✔</string>
+    <string name="just_one_more_no">I really want one more set</string>
+    <string name="block_title">Feed blocked for today</string>
+    <string name="block_replacement_menu">Swap the routine, keep the reward:\n• 10 deep breaths\n• Drink a glass of water\n• Step outside for 2 minutes\n• Message someone you like</string>
+    <string name="close_app">Close the feed</string>
+    <string name="no_shortcut_back">There is no shortcut. That\'s the point 🙂</string>
+
+    <string-array name="modes">
+        <item>Gentle (awareness)</item>
+        <item>Moderate (friction)</item>
+        <item>Strict (enforced rule)</item>
+        <item>Block (hard wall)</item>
+    </string-array>
+
+    <!-- Tier-2 speedbump -->
+    <string name="sb_affect_prompt">Before the next pull: what are you feeling right now?</string>
+    <string name="sb_affect_ack">Feeling \'%1$s\'. Naming it already cools the circuit. Now choose:</string>
+    <string name="sb_act_stop">I am done — put the phone down ✔</string>
+    <string name="sb_act_one_more">I choose one more set, consciously</string>
+    <string name="sb_seq_prompt">Tap in this exact order to continue:\n%1$s</string>
+    <string name="sb_seq_done">Sequence complete. System-2 online ✔</string>
+    <string name="sb_seq_reset">Wrong node — new sequence.</string>
+
+    <!-- Tier-3 block / replacement reward -->
+    <string name="block_reward_header">If I get blocked on Reels, I will…</string>
+    <string name="set_replacement_hint">Replacement action (implementation intention)</string>
+
+    <!-- V3 overlay controller -->
+    <string name="sb_title">Pause. Choose with your prefrontal cortex.</string>
+    <string name="sb_circadian_prompt">Scrolling in the dark: revenge bedtime procrastination, or intentional rest?</string>
+    <string name="open_replacement">Open %1$s instead →</string>
+    <string name="go_home_instead">Go home instead</string>
+    <string name="set_replacement_app">Replacement app (optional — opened when you are blocked)</string>
+    <string name="set_replacement_app_none">None — text intention only</string>
+    <string name="precommit_title">You are about to disable your own protection.</string>
+    <string name="precommit_body">Sit with this for 20 seconds.\n\nThe person who installed ReelBreaker made this choice while calm. The person holding the phone right now is in a hot state and cannot vote twice.\n\nIf you truly want to change settings after the countdown, the toggle will be there.</string>
+    <string name="precommit_remaining">Reflection: %1$d s</string>
+    <string name="passive_lock_reason">One reel looped for over 40 seconds without a single touch — that is passive capture, not choosing.</string>
+    <string name="dash_brain_metrics">🧠 %1$d trance loops broken · %2$d prefrontal overrides today</string>
+    <string name="dash_state_line">Live kinematics: %1$s · μ-ISI %2$s · CV %3$s</string>
+    <!-- V4-2 doorway checkpoint -->
+    <string name="doorway_prompt">Before you scroll: intentional check or taking a break?</string>
+    <string name="doorway_2">2 min</string>
+    <string name="doorway_5">5 min</string>
+    <string name="doorway_10">10 min</string>
+    <string name="doorway_just_scrolling">Just scrolling</string>
+    <!-- V4-4 face-down urge surf -->
+    <string name="surf_title">The Gearshift — Urge Surf</string>
+    <string name="surf_predict_prompt">How strong is the pull to keep scrolling? Flip your phone face-down for 25 seconds. I\'ll vibrate when the wave passes.</string>
+    <string name="surf_low">Low</string>
+    <string name="surf_medium">Medium</string>
+    <string name="surf_high">High</string>
+    <string name="surf_flip_now">Flip it face-down now. The timer only runs while it lies still.</string>
+    <string name="surf_hold">Face-down locked in. Riding the wave…</string>
+    <string name="surf_paused">Picked up early — timer paused. Flip it again when ready.</string>
+    <string name="surf_reflect">You surfed a %1$s urge in 25 seconds. Still want to scroll, or done for now?</string>
+    <string name="surf_done_win">I\'m Done (Win)</string>
+    <string name="surf_two_more">2 More Minutes</string>
+    <!-- V4-5 physiological sigh pacer -->
+    <string name="sigh_title">Physiological Sigh — 30s</string>
+    <string name="sigh_remaining">%1$d seconds left</string>
+    <string name="sigh_done_early">Done — I feel calmer</string>
+    <!-- V4-6 trigger repair screen -->
+    <string name="repair_title">This is a pattern, not a failure</string>
+    <string name="repair_body">Four breaches in an hour means the app is doing something hard right now — not that you lack willpower. Blocks stop escalating here. You can take a conscious 10-minute pass; it will be logged for your evening review.</string>
+    <string name="repair_hold">Hold 4s to override for 10m — logged to evening review</string>
+    <string name="repair_keep_holding">Keep holding… %1$ds</string>
+</resources>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/onboard_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_base"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="48dp">
+
+        <!-- Top Commitment Badge -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill_chip"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.08"
+            android:text="DEVICE SETUP &amp; PERMISSIONS"
+            android:textColor="@color/accent"
+            android:textSize="10sp" />
+
+        <!-- Hero Headline -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-black"
+            android:lineSpacingExtra="4dp"
+            android:text="Reclaim your attention span."
+            android:textColor="@color/text_hi"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="4dp"
+            android:text="Configure OS-level permissions so ReelBreaker can detect swipes, cool cravings, and survive OEM background task killers."
+            android:textColor="@color/text_med"
+            android:textSize="13sp" />
+
+        <!-- ================= CARD 1: ACCESSIBILITY (CORE) ================= -->
+        <LinearLayout
+            android:id="@+id/card_accessibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="1 · Accessibility Service"
+                    android:textColor="@color/text_hi"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/badge_a11y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_status_paused"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="REQUIRED"
+                    android:textColor="@color/accent_amber"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="2dp"
+                android:text="The only Android API that sees vertical reel flicks without root. Runs 100% locally on device — zero personal data or messages are ever read."
+                android:textColor="@color/text_med"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_accessibility"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_button_primary"
+                android:fontFamily="sans-serif-medium"
+                android:text="Grant Accessibility Access"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/a11y_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif"
+                android:text="Tap 'ReelBreaker' under Installed / Downloaded Apps → Toggle ON → Allow."
+                android:textColor="@color/accent2"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- ================= CARD 2: BATTERY / BACKGROUND KEEP-ALIVE ================= -->
+        <LinearLayout
+            android:id="@+id/card_battery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="2 · Background Keep-Alive"
+                    android:textColor="@color/text_hi"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/badge_battery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_chip"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="RECOMMENDED"
+                    android:textColor="@color/text_med"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="2dp"
+                android:text="Prevents aggressive phone battery managers (Samsung OneUI, Xiaomi HyperOS, OnePlus) from silently killing the swipe detector after 2 hours."
+                android:textColor="@color/text_med"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_battery_opt"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_button_ghost"
+                android:fontFamily="sans-serif-medium"
+                android:text="Allow Unrestricted Background Activity"
+                android:textAllCaps="false"
+                android:textColor="@color/text_hi"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- ================= CARD 3: OVERLAYS (SYSTEM_ALERT_WINDOW) ================= -->
+        <LinearLayout
+            android:id="@+id/card_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="3 · Visual Friction Overlays"
+                    android:textColor="@color/text_hi"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/badge_overlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_chip"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="OPTIONAL"
+                    android:textColor="@color/text_lo"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="2dp"
+                android:text="Allows Tier-1 sensory dampening (screen contrast reduction) and smooth blur transitions."
+                android:textColor="@color/text_med"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_overlay_perm"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_button_ghost"
+                android:fontFamily="sans-serif-medium"
+                android:text="Enable Display Over Other Apps"
+                android:textAllCaps="false"
+                android:textColor="@color/text_hi"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- ================= CARD 4: TARGET FEEDS ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="4 · Target Feeds to Shield"
+                android:textColor="@color/text_hi"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="Select which algorithmic loops you want to protect yourself from:"
+                android:textColor="@color/text_med"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/app_checks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <!-- ================= CARD 5: BUDGET & MODE ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="5 · Daily Budget"
+                android:textColor="@color/text_hi"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="Max reels permitted per day before friction tightens:"
+                android:textColor="@color/text_med"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_onboard_budget"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_field"
+                android:fontFamily="sans-serif"
+                android:inputType="number"
+                android:text="45"
+                android:textColor="@color/text_hi"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- ================= FINISH CTA BUTTON ================= -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_button_mint"
+            android:fontFamily="sans-serif-medium"
+            android:text="Start Breaking the Loop →"
+            android:textAllCaps="false"
+            android:textColor="@color/bg_base"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</ScrollView>
