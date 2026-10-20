@@ -1,5 +1,7 @@
 package com.reelbreaker.ui.settings
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -16,6 +18,11 @@ import com.reelbreaker.data.Store
 import com.reelbreaker.engine.InterventionMode
 
 class SettingsActivity : AppCompatActivity() {
+
+    /** pkg -> label for installed launchable apps (null entry = "None"). */
+    private data class AppItem(val pkg: String?, val label: String) {
+        override fun toString() = label
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,39 @@ class SettingsActivity : AppCompatActivity() {
         capEt.setText(Store.get(ctx).sessionSoftCap.toString())
         val commitEt = findViewById<EditText>(R.id.commit_input)
         Store.get(ctx).commitmentStopAt?.let { commitEt.setText(it.toString()) }
+
+        // ---- V3-4: circadian sleep window ----
+        val sleepStartEt = findViewById<EditText>(R.id.sleep_start_input)
+        sleepStartEt.setText(Store.get(ctx).sleepWindowStart)
+        val sleepEndEt = findViewById<EditText>(R.id.sleep_end_input)
+        sleepEndEt.setText(Store.get(ctx).sleepWindowEnd)
+
+        // ---- V3-5: implementation intention text + executable replacement app ----
+        val replacementEt = findViewById<EditText>(R.id.replacement_input)
+        replacementEt.setText(Store.get(ctx).replacementAction)
+
+        val pm = packageManager
+        val items = ArrayList<AppItem>()
+        items.add(AppItem(null, getString(R.string.set_replacement_app_none)))
+        val launchables = Intent().setAction(android.content.Intent.ACTION_MAIN)
+            .addCategory(android.content.Intent.CATEGORY_LAUNCHER)
+        pm.queryIntentActivities(launchables, 0)
+            .mapNotNull { ri ->
+                runCatching {
+                    ri.activityInfo.packageName to
+                            pm.getApplicationLabel(ri.activityInfo.applicationInfo).toString()
+                }.getOrNull()
+            }
+            .distinctBy { it.first }
+            .filter { it.first != packageName }
+            .sortedBy { it.second.lowercase() }
+            .forEach { (p, l) -> items.add(AppItem(p, l)) }
+
+        val appSpinner = findViewById<Spinner>(R.id.replacement_app_spinner)
+        appSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+        Store.get(ctx).replacementPackage?.let { sel ->
+            items.indexOfFirst { it.pkg == sel }.takeIf { it >= 0 }?.let(appSpinner::setSelection)
+        }
 
         val container = findViewById<android.widget.LinearLayout>(R.id.app_checks2)
         val enabled = Store.get(ctx).enabledApps()
@@ -57,15 +97,30 @@ class SettingsActivity : AppCompatActivity() {
             val commit = commitEt.text.toString().toIntOrNull()?.takeIf { it > 0 }
             val apps = boxes.filter { it.isChecked }.map { it.tag as String }.toSet()
 
+            val hhmm = Regex("\\d{1,2}:\\d{2}")
+            val sStart = sleepStartEt.text.toString().trim()
+            val sEnd = sleepEndEt.text.toString().trim()
+            val chosenApp = (appSpinner.selectedItemPosition
+                .takeIf { it >= 0 && it < items.size })?.let { items[it].pkg }
+
             val st = Store.get(ctx)
             st.mode = mode
             st.dailyBudget = budget
             st.sessionSoftCap = cap
             st.commitmentStopAt = commit
             st.setEnabledApps(apps)
+            if (hhmm.matches(sStart)) st.sleepWindowStart = padTime(sStart)
+            if (hhmm.matches(sEnd)) st.sleepWindowEnd = padTime(sEnd)
+            st.replacementAction = replacementEt.text.toString().trim()
+            st.replacementPackage = chosenApp
             ReelBreakerApp.INSTANCE.syncEngineFromStore()
             Toast.makeText(this, R.string.set_saved, Toast.LENGTH_SHORT).show()
             finish()
         }
+    }
+
+    private fun padTime(t: String): String {
+        val parts = t.split(":")
+        return "%02d:%02d".format(parts[0].toInt(), parts[1].toInt())
     }
 }

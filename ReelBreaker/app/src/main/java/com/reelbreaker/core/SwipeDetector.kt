@@ -133,18 +133,17 @@ class SessionTracker(private val idleGapMs: Long = SwipeDetector.MAX_REEL_INTERV
 /** Utility to read the dominant scroll delta out of an accessibility event. */
 object Events {
     fun scrollDeltaY(e: AccessibilityEvent): Int {
-        // item index changes (RecyclerView) — treat as ~one page
-        val idx = e.itemIndex
-        val sc = e.scrollY     // pixel delta when provided
+        // AccessibilityEvent has no itemIndex API; use the pixel scroll delta,
+        // falling back to a conservative full-page estimate for page-snap feeds.
+        val sc = e.scrollY     // pixel delta when provided by the scrolling view
         return when {
             sc != 0 -> sc
-            idx >= 0 -> 1080   // conservative full-page estimate
             else -> 0
         }
     }
 
     fun absScrollY(e: AccessibilityEvent, nodeHeightPx: Int): Int {
-        // Use item index as a coarse absolute position when pixel deltas absent
-        return if (e.itemIndex >= 0) e.itemIndex * nodeHeightPx else e.scrollY
+        // When the view reports no pixel delta, treat the event as one page snap.
+        return if (e.scrollY != 0) e.scrollY else nodeHeightPx
     }
 }

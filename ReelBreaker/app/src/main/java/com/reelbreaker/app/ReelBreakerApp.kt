@@ -5,6 +5,7 @@ import android.content.Context
 import com.reelbreaker.data.Store
 import com.reelbreaker.engine.AddictionEngine
 import com.reelbreaker.engine.EngineConfig
+import com.reelbreaker.engine.InterventionBandit
 
 /**
  * Process-wide singletons. The accessibility service and the UI run in the
@@ -25,6 +26,11 @@ class ReelBreakerApp : Application() {
         )
         engine = AddictionEngine(cfg)
         engine.setTodayTotal(Store.get(ctx).todayTotal())
+        // V4-5: process-wide Thompson-sampling bandit; the engine asks it for
+        // an arm at every Tier-2 trigger. Persisted trials are replayed by the
+        // accessibility service on connect (TelemetryBus.loadBanditTrials).
+        bandit = InterventionBandit()
+        engine.armSelector = { bandit.nextArm() }
     }
 
     fun syncEngineFromStore() {
@@ -43,6 +49,8 @@ class ReelBreakerApp : Application() {
         lateinit var INSTANCE: ReelBreakerApp
             private set
         lateinit var engine: AddictionEngine
+            private set
+        lateinit var bandit: InterventionBandit
             private set
     }
 }

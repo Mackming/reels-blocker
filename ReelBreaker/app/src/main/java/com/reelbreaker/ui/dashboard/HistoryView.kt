@@ -41,7 +41,7 @@ class HistoryView @JvmOverloads constructor(
             val v = data[i]
             val bh = (v / maxV.toFloat()) * (h - 60)
             val left = i * slot + (slot - bw) / 2
-            barPaint.color = if (v > budget) 0xFFFF6B6B.toInt() else getColor(R.color.accent)
+            barPaint.color = if (v > budget) 0xFFFF6B6B.toInt() else context.getColor(R.color.accent)
             c.drawRoundRect(left, h - 60 - bh, left + bw, h - 60, 8f, 8f, barPaint)
             c.drawText(if (v == 0) "·" else "$v", left + bw / 2, h - 20, labelPaint)
         }

@@ -76,7 +76,11 @@ class BlockOverlayActivity : Activity() {
                 }.start()
                 primary.isEnabled = false
                 primary.text = getString(R.string.waiting_for_wave)
-                primary.setOnClickListener { finish() }
+                // Surfing the whole wave = a self-control win (urge-surf outcome).
+                primary.setOnClickListener {
+                    recordOutcome("SURFED")
+                    finish()
+                }
             }
             ReelAccessibilityService.OverlaySpec.KIND_CHECKPOINT -> {
                 title.text = getString(R.string.checkpoint_title)
@@ -95,17 +99,28 @@ class BlockOverlayActivity : Activity() {
                 }
                 primary.setOnClickListener { goHome() }
             }
-            else -> { // BLOCK
+            else -> { // BLOCK — Tier 3 terminal: implementation-intention card
                 title.text = getString(R.string.block_title)
                 message.text = reason
-                breathe.text = getString(R.string.block_replacement_menu)
+                val action = com.reelbreaker.data.Store.get(this).replacementAction
+                breathe.text = if (action.isNotBlank())
+                    getString(R.string.block_reward_header) + "\n• " + action +
+                            "\n\n" + getString(R.string.block_replacement_menu)
+                else getString(R.string.block_replacement_menu)
                 primary.text = getString(R.string.close_app)
                 primary.isEnabled = true
+                recordOutcome("BREACHED_BLOCK")
                 if (forceExit) goHome() // kill switch: exit first, reflect after
                 primary.setOnClickListener { goHome() }
             }
         }
         findViewById<Button>(R.id.overlay_secondary).setOnClickListener { goHome() }
+    }
+
+    /** Publish the intervention outcome to Room via the service. */
+    private fun recordOutcome(outcome: String) {
+        val seconds = intent.getIntExtra(EXTRA_SECONDS, 0)
+        ReelAccessibilityService.instance?.recordCooldownOutcome(outcome, seconds)
     }
 
     /** Simple 4-7-8 style pacer: expand text cues drive parasympathetic braking. */

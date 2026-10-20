@@ -63,6 +63,64 @@
             android:inputType="number"
             android:hint="e.g. 15 (blank = no rule)" />
 
+        <!-- V3-4: circadian sleep window -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Sleep window (HH:mm start — dark-room friction tightens 50% inside it)"
+            android:textColor="@color/text_hi" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/sleep_start_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="time"
+                android:hint="22:30" />
+
+            <EditText
+                android:id="@+id/sleep_end_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="time"
+                android:hint="05:00" />
+        </LinearLayout>
+
+        <!-- V3-5: implementation intention text + executable replacement app -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/set_replacement_hint"
+            android:textColor="@color/text_hi" />
+
+        <EditText
+            android:id="@+id/replacement_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="e.g. read 10 pages of my current book" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/set_replacement_app"
+            android:textColor="@color/text_hi" />
+
+        <Spinner
+            android:id="@+id/replacement_app_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

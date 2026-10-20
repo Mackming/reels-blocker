@@ -28,6 +28,8 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var streakLine: TextView
     private lateinit var sessionLine: TextView
     private lateinit var blockedLine: TextView
+    private lateinit var brainLine: TextView
+    private lateinit var stateLine: TextView
     private lateinit var historyChart: HistoryView
     private lateinit var armButton: Button
 
@@ -51,6 +53,8 @@ class DashboardActivity : AppCompatActivity() {
         streakLine = findViewById(R.id.streak_line)
         sessionLine = findViewById(R.id.session_line)
         blockedLine = findViewById(R.id.blocked_line)
+        brainLine = findViewById(R.id.brain_line)
+        stateLine = findViewById(R.id.state_line)
         historyChart = findViewById(R.id.history_chart)
         armButton = findViewById(R.id.arm_button)
         findViewById<Button>(R.id.settings_button).setOnClickListener {
@@ -77,7 +81,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun render() {
         {
-            val store = Store.get(ctx)
+            val store = Store.get(this)
             val total = store.todayTotal()
             val budget = store.dailyBudget
             bigCount.text = total.toString()
@@ -100,6 +104,25 @@ class DashboardActivity : AppCompatActivity() {
                 R.string.dash_blocked_today,
                 todayRow[3].toInt(), todayRow[2].toInt()
             )
+
+            // Phase-4 neuro metrics: trance loops broken + prefrontal overrides
+            brainLine.text = getString(
+                R.string.dash_brain_metrics,
+                store.todaySurfs() + store.todayOverrides(),
+                store.todayOverrides()
+            )
+            val kin = ReelAccessibilityService.instance?.liveKinematics()
+            if (kin != null && kin.sampleCount >= 3) {
+                stateLine.text = getString(
+                    R.string.dash_state_line,
+                    kin.state.name,
+                    String.format(Locale.US, "%.1fs", kin.meanIsiMs / 1000.0),
+                    String.format(Locale.US, "%.2f", kin.cv)
+                )
+                stateLine.visibility = android.view.View.VISIBLE
+            } else {
+                stateLine.visibility = android.view.View.GONE
+            }
 
             historyChart.setData(store.history(7).map { it.split("|")[1].toInt() }.reversed())
             historyChart.budget = budget
