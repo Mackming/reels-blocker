@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink">#0B1020</color>
+    <color name="surface">#141A2E</color>
+    <color name="surface2">#1D2540</color>
+    <color name="accent">#7C5CFF</color>
+    <color name="accent2">#00E5A0</color>
+    <color name="warn">#FF6B6B</color>
+    <color name="text_hi">#F2F5FF</color>
+    <color name="text_lo">#9AA3BF</color>
+    <color name="overlay_bg">#0E0F1A</color>
+</resources>

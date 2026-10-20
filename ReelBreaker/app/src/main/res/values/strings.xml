@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReelBreaker</string>
+    <string name="accessibility_label">ReelBreaker — Reels Blocker &amp; Counter</string>
+
+    <!-- Onboarding -->
+    <string name="onboard_headline">Reels are slot machines.\nYour thumb is pulling the lever.</string>
+    <string name="onboard_sub">ReelBreaker counts every swipe, detects when you lose control, and puts neuroscience-based friction between the urge and the feed.</string>
+    <string name="onboard_step1">1 · Counting needs the Accessibility switch — it\'s the only OS-level way to see swipes without root. Your data never leaves the phone.</string>
+    <string name="onboard_step2">2 · Pick your feeds: Instagram Reels, YouTube Shorts, TikTok…</string>
+    <string name="onboard_step3">3 · Choose your protection level — from pure awareness to hard blocking.</string>
+    <string name="onboard_grant_accessibility">Grant accessibility access</string>
+    <string name="onboard_enable_blocker">Turn blocker ON</string>
+    <string name="onboard_finish">Start breaking the loop</string>
+
+    <!-- Dashboard -->
+    <string name="dash_today">reels today</string>
+    <string name="dash_budget_of">of %1$d planned</string>
+    <string name="dash_streak">🔥 %1$d-day streak under budget</string>
+    <string name="dash_session_active">Session live: %1$d reels · %2$s min · %3$.0f/min</string>
+    <string name="dash_session_idle">No active session. The counter wakes up when you scroll.</string>
+    <string name="dash_blocked_today">%1$d pulls blocked · %2$d s of cooldowns surfed today</string>
+    <string name="dash_7day">Last 7 days</string>
+    <string name="dash_settings">Settings</string>
+    <string name="dash_protection_on">Blocker ARMED</string>
+    <string name="dash_protection_off">Blocker OFF — tap to arm</string>
+
+    <!-- Settings -->
+    <string name="set_mode">Protection level</string>
+    <string name="mode_gentle_desc">Awareness only — live counter chip, zero blocking</string>
+    <string name="mode_moderate_desc">Friction on loss-of-control + session caps</string>
+    <string name="mode_strict_desc">All friction + enforced stop rule</string>
+    <string name="mode_block_desc">Hard block after budget — app gets sent home</string>
+    <string name="set_daily_budget">Daily reel budget</string>
+    <string name="set_session_cap">Session soft cap (reels)</string>
+    <string name="set_commitment">If–Then stop rule: "I stop after ___ reels"</string>
+    <string name="set_apps">Target feeds</string>
+    <string name="set_save">Save</string>
+    <string name="set_saved">Saved ✓</string>
+
+    <!-- Overlay -->
+    <string name="cooldown_title">Ride the wave 🌊</string>
+    <string name="cooldown_remaining">%1$d s</string>
+    <string name="waiting_for_wave">Waiting for the urge to crest…</string>
+    <string name="i_am_done_continue">I chose this — continue</string>
+    <string name="checkpoint_title">Checkpoint</string>
+    <string name="checkpoint_prompt">Before you swipe again, say it out loud:\n"What did I actually open this app to do?"</string>
+    <string name="stop_here_is_good">Stopping here is a win ✔</string>
+    <string name="just_one_more_no">I really want one more set</string>
+    <string name="block_title">Feed blocked for today</string>
+    <string name="block_replacement_menu">Swap the routine, keep the reward:\n• 10 deep breaths\n• Drink a glass of water\n• Step outside for 2 minutes\n• Message someone you like</string>
+    <string name="close_app">Close the feed</string>
+    <string name="no_shortcut_back">There is no shortcut. That\'s the point 🙂</string>
+
+    <string-array name="modes">
+        <item>Gentle (awareness)</item>
+        <item>Moderate (friction)</item>
+        <item>Strict (enforced rule)</item>
+        <item>Block (hard wall)</item>
+    </string-array>
+</resources>
