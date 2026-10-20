@@ -77,7 +77,7 @@ class SensoryDampener(private val context: Context) {
         try {
             wm.addView(v, p)
             view = v; params = p
-        } catch (_: SecurityException) {
+        } catch (_: Exception) {
             // SYSTEM_ALERT_WINDOW not granted — Tier 1 silently degrades to no-op.
         }
     }
@@ -105,7 +105,7 @@ class SensoryDampener(private val context: Context) {
     /** V3-4 — dark-room sessions get a stronger, warmer veil from swipe #1. */
     var circadianBaseline: Boolean = false
 
-    fun setWarmRedShift(on: Boolean) { warmBoost = if (on) 1f else 0f }
+    fun setWarmRedShift(on: Boolean) { warmBoost = if (on) 1f else 0f; view?.postInvalidate() }
     private var warmBoost = 0f
 
     fun fadeTo(a: Float) { targetAlpha = a; handler.removeCallbacks(anim); handler.post(anim) }

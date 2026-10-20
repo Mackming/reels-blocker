@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ink">#0B1020</color>
-    <color name="surface">#141A2E</color>
-    <color name="surface2">#1D2540</color>
-    <color name="accent">#7C5CFF</color>
-    <color name="accent2">#00E5A0</color>
-    <color name="warn">#FF6B6B</color>
-    <color name="text_hi">#F2F5FF</color>
-    <color name="text_lo">#9AA3BF</color>
-    <color name="overlay_bg">#0E0F1A</color>
+    <!-- Cyber Glass 2026 Obsidian Palette -->
+    <color name="ink">#04060B</color>
+    <color name="bg_base">#04060B</color>
+    <color name="surface">#0D121E</color>
+    <color name="surface2">#151D30</color>
+    <color name="surface3">#1E2944</color>
+    <color name="surface_border">#25314C</color>
+    <color name="surface_border_subtle">#1A2338</color>
+    
+    <!-- Neon Chromatic Accents -->
+    <color name="accent">#8B5CF6</color>
+    <color name="accent_violet">#8B5CF6</color>
+    <color name="accent_glow">#4D8B5CF6</color>
+    <color name="accent2">#00F5A0</color>
+    <color name="accent_mint">#00F5A0</color>
+    <color name="accent_cyan">#00DFD8</color>
+    <color name="accent_amber">#FFA502</color>
+    <color name="warn">#FF4757</color>
+    
+    <!-- Spatial Typography -->
+    <color name="text_hi">#F8FAFC</color>
+    <color name="text_med">#94A3B8</color>
+    <color name="text_lo">#64748B</color>
+    
+    <!-- Overlays -->
+    <color name="overlay_bg">#F2060912</color>
+    <color name="status_armed_bg">#1A00F5A0</color>
+    <color name="status_paused_bg">#1AFFA502</color>
 </resources>

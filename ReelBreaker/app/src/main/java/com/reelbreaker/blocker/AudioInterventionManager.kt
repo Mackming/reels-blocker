@@ -32,8 +32,16 @@ class AudioInterventionManager(context: Context) {
 
     private val am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
-    private val duckListener = AudioManager.OnAudioFocusChangeListener { /* consumed by request */ }
-    private val hardListener = AudioManager.OnAudioFocusChangeListener { /* consumed by request */ }
+    private val duckListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        if (focusChange == AudioManager.AUDIOFOCUS_LOSS || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+            current = Level.NONE
+        }
+    }
+    private val hardListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        if (focusChange == AudioManager.AUDIOFOCUS_LOSS || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+            current = Level.NONE
+        }
+    }
 
     private val duckRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
         .setAudioAttributes(
@@ -64,16 +72,22 @@ class AudioInterventionManager(context: Context) {
     /** Tier 1 late-stage: duck the feed's audio (~60-80%). Idempotent. */
     fun duck() {
         if (current == Level.DUCK || current == Level.HARD) return
-        runCatching { am.requestAudioFocus(duckRequest) }
-        current = Level.DUCK
+        val res = runCatching { am.requestAudioFocus(duckRequest) }.getOrDefault(AudioManager.AUDIOFOCUS_REQUEST_FAILED)
+        if (res == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            current = Level.DUCK
+        }
     }
 
     /** Tier 2 / Tier 3: force the host to stop its audio completely. */
     fun hardSever() {
         if (current == Level.HARD) return
         if (current == Level.DUCK) runCatching { am.abandonAudioFocusRequest(duckRequest) }
-        runCatching { am.requestAudioFocus(hardRequest) }
-        current = Level.HARD
+        val res = runCatching { am.requestAudioFocus(hardRequest) }.getOrDefault(AudioManager.AUDIOFOCUS_REQUEST_FAILED)
+        if (res == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            current = Level.HARD
+        } else {
+            current = Level.NONE
+        }
     }
 
     /** Restore the feed's audio exactly once, on clean unlock / session end. */

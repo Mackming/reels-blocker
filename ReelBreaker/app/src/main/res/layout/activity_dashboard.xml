@@ -2,108 +2,241 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ink">
+    android:background="@color/bg_base"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="20dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="32dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- ================= TOP APP BAR ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/accent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/big_count"
-            android:layout_width="wrap_content"
+            <!-- Brand Logo & Name -->
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_brand_logo"
+                android:contentDescription="ReelBreaker Logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/app_name"
+                android:textColor="@color/text_hi"
+                android:textSize="16sp" />
+
+            <!-- Armed / Paused Status Pill -->
+            <TextView
+                android:id="@+id/arm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_status_armed"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="● ARMED"
+                android:textColor="@color/accent2"
+                android:textSize="12sp" />
+
+            <!-- Settings Button -->
+            <ImageView
+                android:id="@+id/settings_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_card_elevated"
+                android:clickable="true"
+                android:contentDescription="@string/dash_settings"
+                android:focusable="true"
+                android:padding="7dp"
+                android:src="@drawable/ic_gear" />
+        </LinearLayout>
+
+        <!-- ================= HERO CIRCULAR GAUGE ================= -->
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/accent2"
-            android:textSize="84sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="16dp">
 
-        <TextView
-            android:id="@+id/budget_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_lo"
-            android:textSize="15sp" />
+            <com.reelbreaker.ui.dashboard.CircularGaugeView
+                android:id="@+id/circular_gauge"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal" />
 
+            <!-- Hidden TextView for backwards-compatibility bindings -->
+            <TextView
+                android:id="@+id/big_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/budget_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- Streak Badge Chip -->
         <TextView
             android:id="@+id/streak_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_pill_chip"
+            android:fontFamily="sans-serif-medium"
+            android:text="🔥 0-day streak under budget"
             android:textColor="@color/text_hi"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/session_line"
+        <!-- ================= MIND STATE / KINEMATICS CARD ================= -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:background="@color/surface"
-            android:padding="14dp"
-            android:textColor="@color/text_hi"
-            android:textSize="14sp" />
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/blocked_line"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:text="KINEMATICS &amp; HABIT STATE"
+                    android:textColor="@color/text_lo"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/mind_status_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_chip"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="● FOCUS STEADY"
+                    android:textColor="@color/accent2"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/brain_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/text_hi"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/state_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="monospace"
+                android:textColor="@color/text_med"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/blocked_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/warn"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- ================= 7-DAY CAPSULE CHART CARD ================= -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/warn"
-            android:textSize="14sp" />
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/brain_line"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/dash_7day"
+                    android:textColor="@color/text_hi"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:text="BUDGET CEILING"
+                    android:textColor="@color/text_lo"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <com.reelbreaker.ui.dashboard.HistoryView
+                android:id="@+id/history_chart"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- ================= LIVE SESSION CARD ================= -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/accent"
-            android:textSize="14sp" />
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_glass"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/state_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_lo"
-            android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.08"
+                android:text="ACTIVE SESSION"
+                android:textColor="@color/text_lo"
+                android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/dash_7day"
-            android:textColor="@color/text_lo"
-            android:textSize="13sp" />
-
-        <com.reelbreaker.ui.dashboard.HistoryView
-            android:id="@+id/history_chart"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/surface" />
-
-        <Button
-            android:id="@+id/arm_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" />
-
-        <Button
-            android:id="@+id/settings_button"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/dash_settings" />
+            <TextView
+                android:id="@+id/session_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/text_hi"
+                android:textSize="13sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

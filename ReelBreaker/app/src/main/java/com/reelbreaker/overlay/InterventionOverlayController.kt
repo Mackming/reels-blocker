@@ -123,7 +123,7 @@ class InterventionOverlayController(
 
     @SuppressLint("ClickableViewAccessibility")
     fun showSpeedbump(reason: String, strictTask: Boolean) {
-        val root = FrameLayout(context).apply { setBackgroundColor(0xF20B0B12.toInt()) }
+        val root = FrameLayout(context).apply { setBackgroundColor(0xF404060B.toInt()) }
         // consume all gestures: no swipe-through, no accidental dismissal
         root.setOnTouchListener { _, _: MotionEvent -> true }
 
@@ -234,7 +234,7 @@ class InterventionOverlayController(
 
     @SuppressLint("ClickableViewAccessibility")
     fun showFriction(kind: Kind, seconds: Int, reason: String) {
-        val root = FrameLayout(context).apply { setBackgroundColor(0xF40B0B12.toInt()) }
+        val root = FrameLayout(context).apply { setBackgroundColor(0xF404060B.toInt()) }
         root.setOnTouchListener { _, _: MotionEvent -> true }
 
         val scroll = ScrollView(context)
@@ -256,11 +256,11 @@ class InterventionOverlayController(
         })
         val msg = body(context, reason)
         val counter = TextView(context).apply {
-            textSize = 34f; setTextColor(Color.WHITE)
+            textSize = 38f; setTextColor(Color.parseColor("#00F5A0"))
             gravity = Gravity.CENTER; setPadding(0, 24, 0, 8)
         }
         val breathe = TextView(context).apply {
-            textSize = 18f; setTextColor(Color.parseColor("#8FD3FF"))
+            textSize = 18f; setTextColor(Color.parseColor("#8B5CF6"))
             gravity = Gravity.CENTER; setPadding(0, 8, 0, 24)
         }
         col.addView(titleTv); col.addView(msg); col.addView(counter); col.addView(breathe)

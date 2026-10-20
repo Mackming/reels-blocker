@@ -98,6 +98,7 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
     private var lastTargetExitAt = System.currentTimeMillis()
     private var doorwayPending = false
     private var doorwayView: android.view.View? = null
+    private var triggerRepairView: android.view.View? = null
     private var interventionThisSession = false
 
     // ---- V4-1 natural-gap scheduler state ----
@@ -282,9 +283,9 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
 
         // ---- V4-1: leaving the target app auto-dismisses every overlay ----
         if (KnownTargets.forPackage(pkg) == null && pkg != packageName) {
-            if (overlayCtl.isShowing || surfCtl.isShowing || sighCtl.isShowing || doorwayView != null) {
+            if (overlayCtl.isShowing || surfCtl.isShowing || sighCtl.isShowing || doorwayView != null || triggerRepairView != null) {
                 cancelQueuedSpeedbump()
-                overlayCtl.detach(); surfCtl.detach(); sighCtl.detach(); removeDoorway()
+                overlayCtl.detach(); surfCtl.detach(); sighCtl.detach(); removeDoorway(); removeTriggerRepair()
                 audio.release()
             }
         }
@@ -374,11 +375,29 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
     }
 
     /** Fixed-length haptic pulse used by the sensor-driven overlay controllers. */
-    private fun vibrateLen(ms: Long) {
+    override fun vibrate(ms: Long) {
         try {
             val vm = getSystemService(VIBRATOR_SERVICE) as? android.os.Vibrator
             vm?.vibrate(ms)
         } catch (_: Exception) {}
+    }
+
+    override fun onSurfFinished(prediction: String, outcome: String) {
+        audio.release()
+        if (outcome == "DONE") {
+            ReelBreakerApp.bandit.recordOutcome(success = true)
+        }
+        TelemetryBus.publishIntervention(
+            InterventionEvent(
+                timestampMs = System.currentTimeMillis(),
+                dayKey = dayKey(),
+                kind = "URGE_SURF",
+                outcome = outcome,
+                affectLabel = prediction,
+                cooldownSeconds = 25,
+            )
+        )
+        Store.get(applicationContext).recordOverride(outcome)
     }
 
     // ================= V4-2 — Doorway checkpoint bottom sheet =================
@@ -624,6 +643,11 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
         // Is the user actually looking at OUR app's detail page?
         val root = rootInActiveWindow ?: return
         if (!treeContainsText(root, getString(R.string.app_name))) return
+        val actionKeywords = listOf(
+            "accessibility", "use service", "turn on", "turn off", "stop",
+            "allow", "shortcut", "force stop", "uninstall", "permissions"
+        )
+        if (!actionKeywords.any { treeContainsText(root, it) }) return
         showPrecommit()
     }
 
@@ -828,6 +852,7 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
      */
     @SuppressLint("ClickableViewAccessibility")
     private fun showTriggerRepair() {
+        if (triggerRepairView != null) return
         audio.hardSever()
         val wm = getSystemService(WINDOW_SERVICE) as WindowManager
         val col = android.widget.LinearLayout(applicationContext).apply {
@@ -896,7 +921,7 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
             gravity = Gravity.TOP or Gravity.START
             if (android.os.Build.VERSION.SDK_INT >= 31) setBlurBehindRadius(10)
         }
-        try { wm.addView(col, p) } catch (_: Exception) {}
+        try { wm.addView(col, p); triggerRepairView = col } catch (_: Exception) { triggerRepairView = null }
         TelemetryBus.publishIntervention(
             InterventionEvent(
                 timestampMs = System.currentTimeMillis(),
@@ -909,7 +934,15 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
         )
     }
 
+    private fun removeTriggerRepair() {
+        triggerRepairView?.let { v ->
+            try { (getSystemService(WINDOW_SERVICE) as WindowManager).removeView(v) } catch (_: Exception) {}
+        }
+        triggerRepairView = null
+    }
+
     private fun grantOverrideFromRepair() {
+        removeTriggerRepair()
         ReelBreakerApp.engine.grantOverride(minutes = 10)
         Store.get(applicationContext).addOverrideLog10m()
         overlayCtl.detach(); surfCtl.detach(); sighCtl.detach()
@@ -1028,12 +1061,18 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
         Store.get(applicationContext).blockerActive = false
         dampener?.release()
         stopWatchdog()
+        removeDoorway()
+        removePrecommit()
+        removeTriggerRepair()
         if (::overlayCtl.isInitialized) overlayCtl.releaseAll()
+        if (::surfCtl.isInitialized) surfCtl.detach()
+        if (::sighCtl.isInitialized) sighCtl.detach()
         if (::audio.isInitialized) audio.release()
         if (this::handler.isInitialized) {
             handler.removeCallbacks(idleTicker)
             handler.removeCallbacksAndMessages(null)
         }
+        ReelBreakerAppHooks.sink = null
         super.onDestroy()
     }
 
@@ -1042,7 +1081,7 @@ class ReelAccessibilityService : AccessibilityService(), InterventionOverlayCont
             const val KIND_COOLDOWN = 0
             const val KIND_CHECKPOINT = 1
             const val KIND_BLOCK = 2
-            const val PASSIVE_LOCK_MS = 40_000L
+            const val PASSIVE_LOCK_MS = 75_000L
             /** V4-1 natural-gap: quiet period & max queue wait. */
             const val GAP_QUIET_MS = 1_500L
             const val GAP_MAX_WAIT_MS = 8_000L

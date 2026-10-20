@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReelBreaker — 2026 UI Design Showcase (3 Concepts)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       THEME VARIABLES
+       ========================================================================== */
+
+    /* 1. SWISS MONOLITH (STARK MINIMALIST - Dieter Rams / Teenage Engineering) */
+    [data-theme="monolith"] {
+      --bg-base: #000000;
+      --surface-1: #0A0A0A;
+      --surface-2: #141414;
+      --surface-3: #1E1E1E;
+      --border-subtle: #242424;
+      --border-active: #404040;
+      
+      --accent-primary: #FFFFFF;
+      --accent-glow: rgba(255, 255, 255, 0.15);
+      --accent-status: #FF3B30; /* International safety red */
+      --accent-mint: #FFFFFF;
+      --accent-warn: #FF9500;
+      
+      --text-hi: #FFFFFF;
+      --text-med: #8E8E93;
+      --text-lo: #48484A;
+      
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 999px;
+      
+      --font-display: 'Space Grotesk', monospace;
+      --font-body: 'DM Mono', monospace;
+      --letter-spacing: -0.01em;
+      --card-shadow: none;
+      --glass-blur: none;
+      --glass-bg: #0A0A0A;
+    }
+
+    /* 2. CYBER GLASS (CUTTING EDGE 2026 SPATIAL - VisionOS / Raycast / Linear) */
+    [data-theme="cyber"] {
+      --bg-base: #04060B;
+      --surface-1: rgba(13, 18, 30, 0.7);
+      --surface-2: rgba(21, 29, 48, 0.75);
+      --surface-3: rgba(30, 41, 68, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(132, 94, 247, 0.4);
+      
+      --accent-primary: #8B5CF6; /* Electric Violet */
+      --accent-glow: rgba(139, 92, 246, 0.35);
+      --accent-status: #00F5A0; /* Cyber Mint */
+      --accent-mint: #00F5A0;
+      --accent-warn: #FF4757;
+      
+      --text-hi: #F8FAFC;
+      --text-med: #94A3B8;
+      --text-lo: #475569;
+      
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 999px;
+      
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --letter-spacing: -0.03em;
+      --card-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      --glass-blur: blur(24px);
+      --glass-bg: rgba(15, 22, 38, 0.65);
+    }
+
+    /* 3. KINETIC ZEN (CALM BIO-TECH LUXURY - Opal / Oura / Apple Health) */
+    [data-theme="zen"] {
+      --bg-base: #0B0E14;
+      --surface-1: #131722;
+      --surface-2: #1A2030;
+      --surface-3: #232B40;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-active: rgba(52, 211, 153, 0.3);
+      
+      --accent-primary: #34D399; /* Bioluminescent Sage */
+      --accent-glow: rgba(52, 211, 153, 0.25);
+      --accent-status: #34D399;
+      --accent-mint: #34D399;
+      --accent-warn: #FB923C; /* Soft peach/amber */
+      
+      --text-hi: #F4F1EA; /* Warm pearl */
+      --text-med: #9CA3AF;
+      --text-lo: #4B5563;
+      
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 30px;
+      --radius-full: 999px;
+      
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --letter-spacing: -0.02em;
+      --card-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+      --glass-blur: blur(16px);
+      --glass-bg: rgba(19, 23, 34, 0.85);
+    }
+
+    /* Base Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #020306;
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 40px;
+      transition: background 0.3s ease;
+    }
+
+    /* Top Showcase Bar */
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 16px;
+      max-width: 650px;
+    }
+
+    .showcase-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+      margin-bottom: 8px;
+    }
+
+    .showcase-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .showcase-desc {
+      color: #94A3B8;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* THEME SWITCHER BAR */
+    .theme-switcher {
+      display: flex;
+      gap: 8px;
+      background: #0E121B;
+      padding: 6px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .theme-tab {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .theme-tab:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .theme-tab.active {
+      background: #1C2333;
+      color: #FFF;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .tab-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* SCREEN SWITCHER (Within Phone) */
+    .screen-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 22px;
+      background: #0A0D14;
+      padding: 4px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #64748B;
+      padding: 6px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      color: #E2E8F0;
+    }
+
+    .nav-btn.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+    }
+
+    /* ==========================================================================
+       PHONE CHASSIS
+       ========================================================================== */
+    .phone-wrapper {
+      position: relative;
+      width: 395px;
+      height: 840px;
+      background: #000;
+      border-radius: 50px;
+      padding: 10px;
+      box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95),
+                  0 0 0 1px rgba(255, 255, 255, 0.14),
+                  0 0 70px var(--accent-glow);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-base);
+      border-radius: 40px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      color: var(--text-hi);
+      font-family: var(--font-body);
+      transition: background 0.3s ease;
+    }
+
+    /* Ambient Background Glow inside phone */
+    .screen-ambient-glow {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.4s ease;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 40px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-med);
+      z-index: 10;
+      font-family: var(--font-display);
+    }
+
+    .status-notch {
+      width: 88px;
+      height: 20px;
+      background: #000;
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .camera-lens {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #080A10;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: auto;
+      z-index: 10;
+    }
+
+    .nav-pill {
+      width: 96px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    /* Content Area */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 20px 20px;
+      display: none;
+      scrollbar-width: none;
+      z-index: 1;
+    }
+
+    .screen-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen-content.active {
+      display: block;
+      animation: screenFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes screenFadeIn {
+      from { opacity: 0; transform: scale(0.98) translateY(4px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-1);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: var(--glass-blur);
+      transition: all 0.25s ease;
+    }
+
+    /* In-App Header */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border-active);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-primary);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: var(--letter-spacing);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      cursor: pointer;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-status);
+      transition: all 0.2s ease;
+    }
+
+    .status-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-status);
+      box-shadow: 0 0 8px var(--accent-status);
+    }
+
+    /* ==========================================================================
+       HERO VISUALIZATIONS (Theme Adaptive)
+       ========================================================================== */
+    .hero-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 8px 0 18px;
+      position: relative;
+    }
+
+    /* Theme 1: Monolith Segment Dial */
+    .monolith-dial {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0;
+      width: 100%;
+    }
+
+    [data-theme="monolith"] .monolith-dial {
+      display: flex;
+    }
+
+    [data-theme="monolith"] .circular-gauge {
+      display: none;
+    }
+
+    .mono-big-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 76px;
+      font-weight: 500;
+      letter-spacing: -3px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .mono-limit {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--text-med);
+      margin-top: 6px;
+    }
+
+    .mono-stepper-bar {
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      max-width: 280px;
+      height: 6px;
+      margin-top: 14px;
+    }
+
+    .mono-tick {
+      flex: 1;
+      background: var(--surface-3);
+      border-radius: 2px;
+      transition: background 0.2s ease;
+    }
+
+    .mono-tick.filled {
+      background: #FFFFFF;
+    }
+
+    /* Theme 2 & 3: Circular / Concentric Radial Gauge */
+    .circular-gauge {
+      width: 200px;
+      height: 200px;
+      transform: rotate(-90deg);
+      cursor: pointer;
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: var(--surface-2);
+      stroke-width: 14;
+    }
+
+    .gauge-fill {
+      fill: none;
+      stroke: var(--accent-primary);
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 565;
+      stroke-dashoffset: 214;
+      transition: stroke-dashoffset 0.5s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+      filter: drop-shadow(0 0 10px var(--accent-glow));
+    }
+
+    .gauge-label-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .gauge-count {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .gauge-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-med);
+      margin-top: 4px;
+    }
+
+    .streak-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin-top: 4px;
+    }
+
+    /* Mind State Card */
+    .mind-card {
+      background: var(--surface-1);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .mind-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-lo);
+    }
+
+    .mind-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      color: var(--accent-status);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .mind-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .mind-row {
+      display: flex;
+      gap: 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-med);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* 7-Day Bar Chart */
+    .chart-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 90px;
+      gap: 8px;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .chart-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .chart-bar-fill {
+      width: 100%;
+      max-width: 20px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      transition: all 0.3s ease;
+    }
+
+    .chart-bar-fill.active {
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .chart-bar-label {
+      font-size: 10px;
+      color: var(--text-med);
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #000;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    [data-theme="cyber"] .btn-primary {
+      color: #FFF;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-med);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface-2);
+      color: var(--text-hi);
+    }
+
+    /* App Selection Toggles */
+    .app-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--surface-1);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .app-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      font-family: var(--font-display);
+    }
+
+    .switch-pill {
+      width: 44px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      background: var(--surface-3);
+      position: relative;
+      transition: background 0.2s ease;
+    }
+
+    .switch-pill.on {
+      background: var(--accent-primary);
+    }
+
+    .switch-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #FFF;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="monolith"] .switch-dot {
+      background: #000;
+    }
+
+    .switch-pill.on .switch-dot {
+      transform: translateX(20px);
+    }
+
+    /* Segmented Control in Settings */
+    .seg-control {
+      display: flex;
+      background: var(--surface-1);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      border: 1px solid var(--border-subtle);
+      margin-top: 8px;
+    }
+
+    .seg-item {
+      flex: 1;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--text-med);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .seg-item.active {
+      background: var(--surface-3);
+      color: var(--text-hi);
+    }
+
+    /* Form Fields */
+    .input-field {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: var(--text-hi);
+      font-size: 14px;
+      font-family: inherit;
+      margin-top: 6px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--border-active);
+    }
+
+    /* Overlays (Speedbump & Urge Surf) */
+    .overlay-screen {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      text-align: center;
+      padding: 24px 20px;
+    }
+
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .emotion-btn {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-hi);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-display);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .emotion-btn:hover {
+      background: var(--surface-2);
+      border-color: var(--border-active);
+    }
+
+    /* 3x3 Keypad */
+    .keypad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 250px;
+      margin: 16px auto;
+    }
+
+    .key-btn {
+      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--text-hi);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.12s ease;
+    }
+
+    .key-btn:active {
+      background: var(--accent-primary);
+      color: #000;
+    }
+
+    /* Breathing Circle Animation */
+    .zen-breath-wrap {
+      width: 170px;
+      height: 170px;
+      margin: 32px auto 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .breath-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-primary);
+      animation: breathPulse 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .breath-1 { width: 100%; height: 100%; opacity: 0.8; }
+    .breath-2 { width: 130%; height: 130%; animation-delay: 1.3s; opacity: 0.3; }
+
+    @keyframes breathPulse {
+      0%, 100% { transform: scale(0.75); opacity: 0.85; }
+      50% { transform: scale(1.15); opacity: 0.25; }
+    }
+
+    .breath-timer {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+
+    /* Theme details banner */
+    .theme-info-box {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #94A3B8;
+      text-align: center;
+      max-width: 580px;
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .theme-info-box strong {
+      color: #FFF;
+    }
+  </style>
+</head>
+<body data-theme="cyber">
+
+  <!-- Showcase Header -->
+  <header class="showcase-header">
+    <div class="showcase-pill">
+      Design Lab · 3 Visual Paradigms
+    </div>
+    <h1 class="showcase-title">Choose Your 2026 Aesthetic</h1>
+    <p class="showcase-desc">
+      Switch between three distinct visual directions below to test their tactile feel, typography hierarchy, and friction psychology live in the simulator.
+    </p>
+  </header>
+
+  <!-- 3 THEME SWITCHERS -->
+  <div class="theme-switcher">
+    <button class="theme-tab" onclick="setTheme('monolith')">
+      <span>1. Swiss Monolith</span>
+      <span class="tab-badge">Minimal</span>
+    </button>
+    <button class="theme-tab active" onclick="setTheme('cyber')">
+      <span>2. Cyber Glass</span>
+      <span class="tab-badge">Cutting-Edge</span>
+    </button>
+    <button class="theme-tab" onclick="setTheme('zen')">
+      <span>3. Kinetic Zen</span>
+      <span class="tab-badge">Bio-Tech</span>
+    </button>
+  </div>
+
+  <!-- Screen Switcher Pills (Inside current theme) -->
+  <div class="screen-nav">
+    <button class="nav-btn active" onclick="switchScreen('dashboard')">Dashboard</button>
+    <button class="nav-btn" onclick="switchScreen('onboarding')">Onboarding</button>
+    <button class="nav-btn" onclick="switchScreen('settings')">Settings</button>
+    <button class="nav-btn" onclick="switchScreen('speedbump')">Speedbump (Tier 2)</button>
+    <button class="nav-btn" onclick="switchScreen('cooldown')">Urge Surf</button>
+    <button class="nav-btn" onclick="switchScreen('block')">Lockout Wall</button>
+  </div>
+
+  <!-- Phone Chassis -->
+  <div class="phone-wrapper">
+    <div class="phone-screen">
+      <div class="screen-ambient-glow"></div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span id="clockTime">02:25</span>
+        <div class="status-notch">
+          <div class="camera-lens"></div>
+        </div>
+        <span>5G · 100%</span>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 1. DASHBOARD SCREEN                        -->
+      <!-- ========================================== -->
+      <div id="screen-dashboard" class="screen-content active">
+        <!-- In-App Header -->
+        <div class="top-nav">
+          <div class="brand-wrap">
+            <div class="brand-badge">RB</div>
+            <div class="brand-title">REELBREAKER</div>
+          </div>
+          <div class="status-badge" id="statusPill" onclick="toggleArmed()">
+            <span class="dot"></span>
+            <span id="statusPillText">ARMED</span>
+          </div>
+        </div>
+
+        <!-- HERO COUNTER -->
+        <div class="hero-container">
+          <!-- Monolith Theme Hero (Stark Minimalist Dial) -->
+          <div class="monolith-dial" onclick="simulateSwipe()">
+            <div class="mono-big-num" id="monoCount">28</div>
+            <div class="mono-limit">BUDGET [ 28 / 45 REELS ]</div>
+            <div class="mono-stepper-bar" id="monoTicks">
+              <!-- populated by JS -->
+            </div>
+          </div>
+
+          <!-- Cyber / Zen Radial SVG Gauge -->
+          <svg class="circular-gauge" viewBox="0 0 200 200" onclick="simulateSwipe()">
+            <circle class="gauge-bg" cx="100" cy="100" r="90" />
+            <circle class="gauge-fill" id="gaugeCircle" cx="100" cy="100" r="90" />
+          </svg>
+
+          <div class="gauge-label-wrap">
+            <div class="gauge-count" id="dashTotal">28</div>
+            <div class="gauge-sub">OF 45 REELS</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--accent-status); margin-top: 2px;" id="gaugeRem">17 remaining</div>
+          </div>
+
+          <div class="streak-chip">
+            🔥 4-Day Streak Under Budget
+          </div>
+        </div>
+
+        <!-- MIND STATE / KINEMATICS -->
+        <div class="mind-card">
+          <div class="mind-header">
+            <span class="eyebrow">Kinematics & Habit State</span>
+            <span class="mind-tag" id="mindPill">● FOCUS STEADY</span>
+          </div>
+          <div class="mind-title">Deliberate Pacing</div>
+          <p style="font-size: 12px; color: var(--text-med); line-height: 1.4;">
+            Swipe kinematics confirm executive control. Zero trance loops detected.
+          </p>
+          <div class="mind-row">
+            <span>μ-ISI 1.4s</span>
+            <span>CV 0.22</span>
+            <span>0 loops</span>
+          </div>
+        </div>
+
+        <!-- 7-DAY BAR CHART -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-family: var(--font-display); font-size: 13px; font-weight: 700;">Last 7 Days</span>
+            <span class="eyebrow">TARGET: 45</span>
+          </div>
+          <div class="chart-wrap">
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 38px;"></div><span class="chart-bar-label">M</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 52px;"></div><span class="chart-bar-label">T</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 30px;"></div><span class="chart-bar-label">W</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 65px;"></div><span class="chart-bar-label">T</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 24px;"></div><span class="chart-bar-label">F</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 48px;"></div><span class="chart-bar-label">S</span></div>
+            <div class="chart-bar-col"><div class="chart-bar-fill active" id="todayBar" style="height: 56px;"></div><span class="chart-bar-label" style="color:var(--text-hi);">Today</span></div>
+          </div>
+        </div>
+
+        <!-- QUICK VELOCITY CARD -->
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px;">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 2px;">Active Session</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-hi);">6 reels · 3.5 min</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="eyebrow" style="margin-bottom: 2px;">Velocity</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--accent-status);">1.7 / min</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 2. ONBOARDING SCREEN                       -->
+      <!-- ========================================== -->
+      <div id="screen-onboarding" class="screen-content">
+        <div class="eyebrow" style="margin-top: 8px;">Commitment Device</div>
+        <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1.2; margin: 8px 0 6px;">
+          Reclaim your dopamine.
+        </h2>
+        <p style="font-size: 13px; color: var(--text-med); line-height: 1.5;">
+          Endless vertical feeds exploit variable rewards. ReelBreaker restores prefrontal agency.
+        </p>
+
+        <div style="margin: 20px 0; display: flex; flex-direction: column; gap: 12px;">
+          <div class="card" style="margin-bottom: 0;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 2px;">1 · Accessibility Permission</div>
+            <p style="font-size: 11px; color: var(--text-med);">Detects swipes at the OS boundary. Zero personal data stored.</p>
+          </div>
+          <div class="card" style="margin-bottom: 0;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 2px;">2 · Protected Feeds</div>
+            <p style="font-size: 11px; color: var(--text-med);">Target Instagram Reels, YouTube Shorts, or TikTok.</p>
+          </div>
+          <div class="card" style="margin-bottom: 0;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 2px;">3 · Neuroscience Speedbumps</div>
+            <p style="font-size: 11px; color: var(--text-med);">Cool amygdala urgency before mindless scrolling loops form.</p>
+          </div>
+        </div>
+
+        <div class="eyebrow">Feeds To Protect</div>
+        <div class="app-row" onclick="toggleSwitch(this)">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="app-icon">IG</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700;">Instagram Reels</div>
+              <div style="font-size: 10px; color: var(--text-lo);">Feed & Explore</div>
+            </div>
+          </div>
+          <div class="switch-pill on"><div class="switch-dot"></div></div>
+        </div>
+
+        <div class="app-row" onclick="toggleSwitch(this)">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="app-icon">YT</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700;">YouTube Shorts</div>
+              <div style="font-size: 10px; color: var(--text-lo);">Shorts tab & player</div>
+            </div>
+          </div>
+          <div class="switch-pill on"><div class="switch-dot"></div></div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 24px;" onclick="switchScreen('dashboard')">
+          Arm Blocker & Continue
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 3. SETTINGS SCREEN                         -->
+      <!-- ========================================== -->
+      <div id="screen-settings" class="screen-content">
+        <div class="top-nav">
+          <div class="brand-wrap">
+            <span style="font-family: var(--font-display); font-size: 16px; font-weight: 800;">Settings</span>
+          </div>
+          <button class="btn btn-primary" style="width: auto; padding: 6px 14px; font-size: 12px;" onclick="switchScreen('dashboard')">Save</button>
+        </div>
+
+        <div class="eyebrow" style="margin-top: 10px;">Protection Mode</div>
+        <div class="seg-control">
+          <div class="seg-item" onclick="selectSegment(this)">Gentle</div>
+          <div class="seg-item active" onclick="selectSegment(this)">Moderate</div>
+          <div class="seg-item" onclick="selectSegment(this)">Strict</div>
+          <div class="seg-item" onclick="selectSegment(this)">Lockout</div>
+        </div>
+
+        <div class="eyebrow" style="margin-top: 16px;">Daily Budget (Reels)</div>
+        <input type="number" class="input-field" value="45">
+
+        <div class="eyebrow" style="margin-top: 14px;">Session Soft Cap</div>
+        <input type="number" class="input-field" value="15">
+
+        <div class="eyebrow" style="margin-top: 14px;">Circadian Sleep Window</div>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" class="input-field" value="23:00">
+          <input type="text" class="input-field" value="06:30">
+        </div>
+        <div style="font-size: 11px; color: var(--text-med); margin-top: 4px;">
+          Tightens friction by 50% in dark-room nighttime scrolling.
+        </div>
+
+        <div class="eyebrow" style="margin-top: 14px;">Replacement Action</div>
+        <input type="text" class="input-field" value="📖 Read 10 pages of book">
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 4. SPEEDBUMP OVERLAY (TIER 2 FRICTION)     -->
+      <!-- ========================================== -->
+      <div id="screen-speedbump" class="screen-content overlay-screen">
+        <div class="eyebrow" style="margin-top: 10px;">SYSTEM-2 INTERVENTION</div>
+        <h3 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; margin: 8px 0 4px;">
+          Pause. What is driving this pull?
+        </h3>
+        <p style="font-size: 12px; color: var(--text-med); line-height: 1.4;">
+          Labeling emotional states interrupts the automated motor loop.
+        </p>
+
+        <div class="emotion-grid">
+          <div class="emotion-btn" onclick="labelEmotion('Boredom')">Boredom</div>
+          <div class="emotion-btn" onclick="labelEmotion('Fatigue')">Fatigue</div>
+          <div class="emotion-btn" onclick="labelEmotion('Stress')">Stress</div>
+          <div class="emotion-btn" onclick="labelEmotion('Craving')">Dopamine Urge</div>
+        </div>
+
+        <div style="margin: 18px 0 4px;">
+          <div class="eyebrow">Executive Sequence:</div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 700; color: var(--accent-primary); letter-spacing: 4px; margin-top: 2px;">
+            3 · 8 · 2 · 5
+          </div>
+        </div>
+
+        <div class="keypad-grid">
+          <div class="key-btn" onclick="tapKey(1)">1</div>
+          <div class="key-btn" onclick="tapKey(2)">2</div>
+          <div class="key-btn" onclick="tapKey(3)">3</div>
+          <div class="key-btn" onclick="tapKey(4)">4</div>
+          <div class="key-btn" onclick="tapKey(5)">5</div>
+          <div class="key-btn" onclick="tapKey(6)">6</div>
+          <div class="key-btn" onclick="tapKey(7)">7</div>
+          <div class="key-btn" onclick="tapKey(8)">8</div>
+          <div class="key-btn" onclick="tapKey(9)">9</div>
+        </div>
+
+        <div id="feedbackText" style="font-size: 11px; color: var(--text-med); min-height: 16px;">
+          Tap sequence to restore prefrontal agency
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 5. URGE SURFING SCREEN                     -->
+      <!-- ========================================== -->
+      <div id="screen-cooldown" class="screen-content overlay-screen">
+        <div class="eyebrow" style="margin-top: 14px;">PACING WAVE</div>
+        <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-top: 6px;">Ride the wave.</h3>
+        <p style="font-size: 12px; color: var(--text-med); margin-top: 4px;">
+          Dopamine cravings peak in 20 seconds, then fade naturally.
+        </p>
+
+        <div class="zen-breath-wrap">
+          <div class="breath-ring breath-1"></div>
+          <div class="breath-ring breath-2"></div>
+          <div class="breath-timer" id="waveTimer">14s</div>
+        </div>
+
+        <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700;">
+          Slow breath in… and release
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 36px;" onclick="switchScreen('dashboard')">
+          I Chose This — Continue Consciously
+        </button>
+        <button class="btn btn-ghost" style="margin-top: 10px;" onclick="switchScreen('dashboard')">
+          Stop Here & Close App ✔
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 6. LOCKOUT WALL SCREEN                     -->
+      <!-- ========================================== -->
+      <div id="screen-block" class="screen-content overlay-screen">
+        <div style="font-size: 40px; margin: 24px 0 10px;">🛑</div>
+        <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent-warn);">
+          Daily Budget Exhausted
+        </h3>
+        <p style="font-size: 12px; color: var(--text-med); margin-top: 6px;">
+          You reached your limit of 45 reels today. Feed access locked until tomorrow.
+        </p>
+
+        <div class="card" style="margin: 20px 0; text-align: left;">
+          <div class="eyebrow" style="color: var(--accent-primary); margin-bottom: 4px;">Your Chosen Alternative</div>
+          <div style="font-size: 14px; font-weight: 700;">📖 Read 10 pages of your book</div>
+          <div style="font-size: 11px; color: var(--text-med); margin-top: 2px;">Swap the routine, keep the reward.</div>
+        </div>
+
+        <button class="btn btn-primary" onclick="alert('Android Intent: Launches reading app!')">
+          Open Replacement App →
+        </button>
+        <button class="btn btn-ghost" style="margin-top: 10px;" onclick="switchScreen('dashboard')">
+          Go to Home Screen
+        </button>
+      </div>
+
+      <!-- Nav Bar -->
+      <div class="nav-bar">
+        <div class="nav-pill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Theme Explainer Box -->
+  <div class="theme-info-box" id="themeExplainer">
+    <strong>Cyber Glass (2026 Spatial):</strong> Translucent frosted refractive layers, electric violet-cyan glows, liquid arc progress gauge, and high-fidelity micro-interactions inspired by VisionOS and Linear.
+  </div>
+
+  <script>
+    // Theme Switcher Logic
+    const themeDescriptions = {
+      monolith: '<strong>1. Swiss Monolith (Stark Minimalist):</strong> Pure black (#000000), stark typography (Space Grotesk + DM Mono), dot-matrix step meters, zero decoration, brutalist clarity inspired by Teenage Engineering and Dieter Rams.',
+      cyber: '<strong>2. Cyber Glass (Cutting-Edge 2026 Spatial):</strong> Translucent frosted refractive layers, electric violet-cyan glows, liquid arc progress gauge, and high-fidelity micro-interactions inspired by VisionOS and Linear.',
+      zen: '<strong>3. Kinetic Zen (Bio-Tech Luxury):</strong> Deep volcanic slate, organic rounded shapes (24px-30px), bioluminescent sage green and sunrise peach accents, calm biometric breathing circles inspired by Oura and Opal.'
+    };
+
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      document.querySelectorAll('.theme-tab').forEach(t => t.classList.remove('active'));
+      
+      const tabs = Array.from(document.querySelectorAll('.theme-tab'));
+      const activeTab = tabs.find(t => t.textContent.toLowerCase().includes(theme));
+      if (activeTab) activeTab.classList.add('active');
+
+      document.getElementById('themeExplainer').innerHTML = themeDescriptions[theme];
+      updateVisuals();
+    }
+
+    // Screen Switcher Logic
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-content').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById('screen-' + screenId);
+      if (target) target.classList.add('active');
+
+      const buttons = Array.from(document.querySelectorAll('.nav-btn'));
+      const activeBtn = buttons.find(b => b.textContent.toLowerCase().includes(screenId));
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // Dynamic Reel Counter Simulation
+    let reels = 28;
+    const maxBudget = 45;
+    const circumference = 565; // 2 * PI * 90
+
+    function updateVisuals() {
+      // Monolith Dial
+      document.getElementById('monoCount').textContent = reels;
+      renderMonoTicks();
+
+      // Cyber/Zen Gauge
+      document.getElementById('dashTotal').textContent = reels;
+      const offset = circumference - (reels / maxBudget) * circumference;
+      document.getElementById('gaugeCircle').style.strokeDashoffset = Math.max(0, offset);
+
+      const rem = maxBudget - reels;
+      const remEl = document.getElementById('gaugeRem');
+      if (rem > 0) {
+        remEl.textContent = `${rem} remaining`;
+        remEl.style.color = 'var(--accent-status)';
+      } else {
+        remEl.textContent = 'Limit reached';
+        remEl.style.color = 'var(--accent-warn)';
+      }
+    }
+
+    function renderMonoTicks() {
+      const container = document.getElementById('monoTicks');
+      container.innerHTML = '';
+      const totalTicks = 20;
+      const filledCount = Math.round((reels / maxBudget) * totalTicks);
+      for (let i = 0; i < totalTicks; i++) {
+        const tick = document.createElement('div');
+        tick.className = 'mono-tick' + (i < filledCount ? ' filled' : '');
+        container.appendChild(tick);
+      }
+    }
+
+    function simulateSwipe() {
+      if (reels < 50) {
+        reels++;
+        updateVisuals();
+        if (reels > 35) {
+          const pill = document.getElementById('mindPill');
+          pill.textContent = '🟡 FORAGING';
+          pill.style.color = 'var(--accent-warn)';
+        }
+      }
+    }
+
+    // Toggle Armed
+    let isArmed = true;
+    function toggleArmed() {
+      isArmed = !isArmed;
+      const pill = document.getElementById('statusPill');
+      const text = document.getElementById('statusPillText');
+      if (isArmed) {
+        text.textContent = 'ARMED';
+        pill.style.color = 'var(--accent-status)';
+      } else {
+        text.textContent = 'PAUSED';
+        pill.style.color = 'var(--accent-warn)';
+      }
+    }
+
+    function toggleSwitch(row) {
+      const sw = row.querySelector('.switch-pill');
+      sw.classList.toggle('on');
+    }
+
+    function selectSegment(opt) {
+      opt.parentElement.querySelectorAll('.seg-item').forEach(s => s.classList.remove('active'));
+      opt.classList.add('active');
+    }
+
+    function labelEmotion(name) {
+      alert(`Emotion labeled: "${name}". Prefrontal executive control restored!`);
+      switchScreen('dashboard');
+    }
+
+    // Keypad PIN sequence
+    let currentPin = [];
+    const targetSeq = [3, 8, 2, 5];
+    function tapKey(n) {
+      currentPin.push(n);
+      const fb = document.getElementById('feedbackText');
+      fb.textContent = 'Entered: ' + currentPin.join(' · ');
+
+      if (currentPin.length === 4) {
+        if (JSON.stringify(currentPin) === JSON.stringify(targetSeq)) {
+          fb.textContent = '✓ Sequence Correct! Prefrontal control active.';
+          fb.style.color = 'var(--accent-status)';
+          setTimeout(() => {
+            currentPin = [];
+            fb.textContent = 'Tap sequence to restore prefrontal agency';
+            fb.style.color = 'var(--text-med)';
+            switchScreen('dashboard');
+          }, 800);
+        } else {
+          fb.textContent = '❌ Incorrect. Resetting sequence.';
+          fb.style.color = 'var(--accent-warn)';
+          setTimeout(() => {
+            currentPin = [];
+            fb.textContent = 'Tap sequence to restore prefrontal agency';
+            fb.style.color = 'var(--text-med)';
+          }, 700);
+        }
+      }
+    }
+
+    // Init
+    updateVisuals();
+  </script>
+</body>
+</html>

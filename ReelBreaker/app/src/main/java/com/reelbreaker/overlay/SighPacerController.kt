@@ -45,7 +45,7 @@ class SighPacerController(
         val root = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
-            setBackgroundColor(0xF60B0B12.toInt())
+            setBackgroundColor(0xF604060B.toInt())
             setPadding(56, 72, 56, 56)
         }
         root.setOnTouchListener { _, _: MotionEvent -> true }
@@ -56,7 +56,7 @@ class SighPacerController(
             setTextColor(android.graphics.Color.WHITE); gravity = Gravity.CENTER
         }
         val frame = TextView(context).apply {
-            textSize = 26f; setTextColor(0xFF8FD3FF.toInt()); gravity = Gravity.CENTER
+            textSize = 26f; setTextColor(0xFF8B5CF6.toInt()); gravity = Gravity.CENTER
             setPadding(0, 40, 0, 16)
         }
         val count = TextView(context).apply {

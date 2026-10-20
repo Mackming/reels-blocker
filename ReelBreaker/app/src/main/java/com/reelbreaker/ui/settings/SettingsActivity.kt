@@ -1,16 +1,12 @@
 package com.reelbreaker.ui.settings
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Gravity
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import com.reelbreaker.R
 import com.reelbreaker.app.ReelBreakerApp
 import com.reelbreaker.core.KnownTargets
@@ -29,12 +25,17 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val ctx = this
+
+        findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+            finish()
+        }
+
         val spinner = findViewById<Spinner>(R.id.mode_spinner)
         spinner.adapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item,
             resources.getStringArray(R.array.modes)
         )
-        spinner.setSelection(Store.get(ctx).mode.ordinal - 1)
+        spinner.setSelection((Store.get(ctx).mode.ordinal - 1).coerceAtLeast(0))
 
         val budgetEt = findViewById<EditText>(R.id.budget_input)
         budgetEt.setText(Store.get(ctx).dailyBudget.toString())
@@ -56,8 +57,8 @@ class SettingsActivity : AppCompatActivity() {
         val pm = packageManager
         val items = ArrayList<AppItem>()
         items.add(AppItem(null, getString(R.string.set_replacement_app_none)))
-        val launchables = Intent().setAction(android.content.Intent.ACTION_MAIN)
-            .addCategory(android.content.Intent.CATEGORY_LAUNCHER)
+        val launchables = Intent().setAction(Intent.ACTION_MAIN)
+            .addCategory(Intent.CATEGORY_LAUNCHER)
         pm.queryIntentActivities(launchables, 0)
             .mapNotNull { ri ->
                 runCatching {
@@ -76,17 +77,85 @@ class SettingsActivity : AppCompatActivity() {
             items.indexOfFirst { it.pkg == sel }.takeIf { it >= 0 }?.let(appSpinner::setSelection)
         }
 
-        val container = findViewById<android.widget.LinearLayout>(R.id.app_checks2)
+        val container = findViewById<LinearLayout>(R.id.app_checks2)
         val enabled = Store.get(ctx).enabledApps()
-        val boxes = ArrayList<CheckBox>()
+        val boxes = ArrayList<CompoundButton>()
+        val density = resources.displayMetrics.density
+
         for (t in KnownTargets.ALL) {
-            val cb = CheckBox(this).apply {
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setBackgroundResource(R.drawable.bg_card_elevated)
+                val padH = (14 * density).toInt()
+                val padV = (10 * density).toInt()
+                setPadding(padH, padV, padH, padV)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { topMargin = (8 * density).toInt() }
+                layoutParams = params
+            }
+
+            val textCol = LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+
+            val titleView = TextView(this).apply {
                 text = t.label
+                textSize = 14f
+                typeface = android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.BOLD)
+                setTextColor(ContextCompat.getColor(ctx, R.color.text_hi))
+            }
+
+            val subView = TextView(this).apply {
+                text = "Protected feed loop"
+                textSize = 11f
+                setTextColor(ContextCompat.getColor(ctx, R.color.text_med))
+            }
+
+            textCol.addView(titleView)
+            textCol.addView(subView)
+
+            val sw = SwitchCompat(this).apply {
                 isChecked = enabled.contains(t.pkg)
                 tag = t.pkg
-                setTextColor(getColor(R.color.text_hi))
             }
-            boxes.add(cb); container.addView(cb)
+
+            boxes.add(sw)
+            row.addView(textCol)
+            row.addView(sw)
+
+            row.setOnClickListener {
+                sw.toggle()
+            }
+
+            container.addView(row)
+        }
+
+        val batteryBtn = findViewById<Button>(R.id.btn_battery_opt)
+        val powerMgr = getSystemService(android.content.Context.POWER_SERVICE) as android.os.PowerManager
+        fun updateBatteryButton() {
+            if (powerMgr.isIgnoringBatteryOptimizations(packageName)) {
+                batteryBtn.text = "Battery Optimization Disabled ✔"
+                batteryBtn.isEnabled = false
+                batteryBtn.setTextColor(ContextCompat.getColor(this, R.color.accent2))
+            } else {
+                batteryBtn.text = "Exempt from Battery Optimization"
+                batteryBtn.isEnabled = true
+                batteryBtn.setTextColor(ContextCompat.getColor(this, R.color.text_hi))
+            }
+        }
+
+        updateBatteryButton()
+        batteryBtn.setOnClickListener {
+            runCatching {
+                val intent = Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                    data = android.net.Uri.parse("package:$packageName")
+                }
+                startActivity(intent)
+            }
         }
 
         findViewById<Button>(R.id.btn_save).setOnClickListener {

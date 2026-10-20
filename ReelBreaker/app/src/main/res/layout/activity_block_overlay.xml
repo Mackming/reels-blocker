@@ -2,63 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/overlay_bg"
     android:gravity="center"
-    android:padding="32dp">
+    android:orientation="vertical"
+    android:padding="28dp">
 
     <TextView
         android:id="@+id/overlay_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
         android:textColor="@color/text_hi"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:gravity="center" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/overlay_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
         android:textColor="@color/accent2"
-        android:textSize="56sp"
-        android:textStyle="bold" />
+        android:textSize="54sp" />
 
     <TextView
         android:id="@+id/overlay_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/text_lo"
-        android:textSize="16sp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:lineSpacingExtra="4dp" />
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_med"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/overlay_breathe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:textColor="@color/text_hi"
-        android:textSize="20sp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:lineSpacingExtra="6dp" />
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_hi"
+        android:textSize="18sp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/overlay_primary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:textSize="16sp" />
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button_mint"
+        android:fontFamily="sans-serif-medium"
+        android:textAllCaps="false"
+        android:textColor="@color/bg_base"
+        android:textSize="15sp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/overlay_secondary"
-        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        android:textSize="14sp" />
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button_ghost"
+        android:fontFamily="sans-serif-medium"
+        android:textAllCaps="false"
+        android:textColor="@color/text_med"
+        android:textSize="13sp"
+        android:visibility="gone" />
 
 </LinearLayout>

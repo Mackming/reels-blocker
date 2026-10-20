@@ -108,7 +108,7 @@ class FaceDownUrgeSurfController(
         val root = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
-            setBackgroundColor(0xF60B0B12.toInt())
+            setBackgroundColor(0xF604060B.toInt())
             setPadding(56, 72, 56, 56)
         }
         root.setOnTouchListener { _, _: MotionEvent -> true }
@@ -123,7 +123,7 @@ class FaceDownUrgeSurfController(
             setPadding(0, 24, 0, 24)
         }
         tvCount = TextView(context).apply {
-            textSize = 40f; setTextColor(0xFF8FD3FF.toInt()); gravity = Gravity.CENTER
+            textSize = 40f; setTextColor(0xFF00F5A0.toInt()); gravity = Gravity.CENTER
         }
         val btnRow = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
         btnRowRef = btnRow
